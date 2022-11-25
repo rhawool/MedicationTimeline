@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>History</title>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<style>
+  body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+  .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+  .fa-anchor,.fa-coffee {font-size:200px}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="/" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
+    <a href="{% url 'history_list' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">History</a>
+
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href="/" class="w3-bar-item w3-button w3-padding-large">Home</a>
+    <a href="{% url 'history_list' %}" class="w3-bar-item w3-button w3-padding-large">History</a>
+
+  </div>
+</div>
+
+
+<!-- Header -->
+<header class="w3-container w3-center" style="padding:128px 16px">
+  <h1 class="w3-margin w3-jumbo">History</h1>
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'success' %}<div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>{% elif message.tags == 'error' %}<div class="alert alert-danger" role="alert">
+        {{ message }}
+    </div>{% endif %}
+    {% endfor %}
+{% endif %}
+
+    {% if entries %}
+    <table class="table table-striped">
+
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Last Intake Time</th>
+                    <th scope="col">Medicine Name</th>
+                    <th scope="col">Select</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for entry in entries %}
+                  <tr>
+                    <td>{{entry.id}}</td>
+                    <td>{{entry.intake_time}}</td>
+                    <td>{{entry.medicine_name}}</td>
+                    <form action="{% url 'delete_entries' %}" method="post" id="delete_entries">
+                        {% csrf_token %}
+                    </form>
+                    <td><input class="form-check-input" type="checkbox" name="selected_entries" value="{{ entry.id }}" form="delete_entries"></td>
+
+
+                  </tr>
+                {% endfor %}
+
+                </tbody>
+
+          </table>
+    {% else %}
+    <p>No Entries Yet :(</p>
+    {% endif %}
+
+    <a class="w3-button w3-black w3-padding-large w3-large w3-margin-top" href="/">Go Back</a>
+    {% if entries %}<button class="w3-button w3-black w3-padding-large w3-large w3-margin-top" type="submit" form="delete_entries">Delete Selected</button>{% endif %}
+</header>
+</body>
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">
+  <div class="w3-xlarge w3-padding-32">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+ </div>
+ <p>Powered by <a href="" target="_blank">Disha Industries Ltd.</a></p>
+</footer>
+
+<script>
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
+
+</html>
