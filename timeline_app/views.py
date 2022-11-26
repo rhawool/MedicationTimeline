@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from datetime import datetime
 from django.contrib import messages
 from timeline_app.models import IntakeEntry
 
 
+@login_required
 def home_page(request):
     try:
         last_entry1 = IntakeEntry.objects.all().last()
@@ -19,6 +21,7 @@ def home_page(request):
         return render(request, "home_page.html", {})
 
 
+@login_required
 def add_entry(request):
     try:
         # dt = datetime.now()
@@ -43,6 +46,7 @@ def add_entry(request):
         return redirect("home_page")
 
 
+@login_required
 def history_list(request):
     entries = IntakeEntry.objects.all().order_by('-id')
 
@@ -53,6 +57,7 @@ def history_list(request):
     return render(request, "history_list.html", context)
 
 
+@login_required
 def delete_entries(request):
     try:
         selected_entries = request.POST.getlist("selected_entries")
