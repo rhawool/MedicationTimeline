@@ -30,7 +30,7 @@
 
   <!-- Navbar on small screens -->
   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-    <a href="/" class="w3-bar-item w3-button w3-padding-large">Home</a>
+<!--    <a href="/" class="w3-bar-item w3-button w3-padding-large">Home</a>-->
     <a href="{% url 'history_list' %}" class="w3-bar-item w3-button w3-padding-large">History</a>
       <a href="{% url 'logout_user' %}" class="w3-bar-item w3-button w3-padding-large">Logout</a>
 
@@ -40,7 +40,14 @@
 
 <!-- Header -->
 <header class="w3-container w3-red w3-center" style="padding:128px 16px">
-  <h1 class="w3-margin w3-jumbo">{% if last_entry %}Last Intake : {{last_entry|timesince}} ago - {{last_entry1.medicine_name}} {% else %}No Entries Yet :({% endif %}</h1>
+    {% if last_entry %}
+    <h5 class="w3-margin w3-jumbo">Last Intake :</h5>
+    <h5 class="w3-margin w3-jumbo">{{last_entry|timesince}} ago</h5>
+    <h5 class="w3-margin w3-jumbo">#{{last_entry1.medicine_name}}</h5>
+    {% else %}
+    <h5 class="w3-margin w3-jumbo">No Entries Yet :(</h5>
+    {% endif %}
+
 {% if messages %}
   {% for message in messages %}
         {% if message.tags == 'success' %}<div class="alert alert-success" role="alert">

@@ -97,7 +97,7 @@ input {
 			0 10px 10px rgba(0,0,0,0.22);
 	position: relative;
 	overflow: hidden;
-	width: 768px;
+	width: 384px;
 	max-width: 100%;
 	min-height: 480px;
 }
@@ -111,7 +111,7 @@ input {
 
 .sign-in-container {
 	left: 0;
-	width: 50%;
+	width: 100%;
 	z-index: 2;
 }
 
@@ -258,28 +258,14 @@ footer a {
 
 
 <div class="container" id="container">
-	<div class="form-container sign-up-container">
-		<form action="#">
-			<h1>Create Account</h1>
-			<div class="social-container">
-				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-			</div>
-			<span>or use your email for registration</span>
-			<input type="text" placeholder="Name" />
-			<input type="email" placeholder="Email"  />
-			<input type="password" placeholder="Password"/>
-			<button>Sign Up</button>
-		</form>
-	</div>
 
 
 
 	<div class="form-container sign-in-container">
 		<form method="POST">
           {% csrf_token %}
-			<h1>Sign in</h1>
+			<h1>Login</h1>
+
 			<div class="social-container">
 				<br>
 				{% if messages %}
@@ -291,48 +277,20 @@ footer a {
 					</div>{% endif %}
 					{% endfor %}
 				{% endif %}
-<!--				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>-->
-<!--				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>-->
-<!--				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>-->
+
 			</div>
-<!--			<span>or use your account</span>-->
+
 
 			<input type="text" placeholder="Username" name="username"/>
 			<input type="password" placeholder="Password" name="password"/>
-			<a href="#">Forgot your password?</a>
+			<br>
+            <br>
 			<button type="submit">Sign In</button>
 		</form>
 	</div>
 
 
 
-	<div class="overlay-container">
-		<div class="overlay">
-<!--			<div class="overlay-panel overlay-left">-->
-<!--				<h1>Welcome Back!</h1>-->
-<!--				<p>To keep connected with us please login with your personal info</p>-->
-<!--				<button class="ghost" id="signIn">Sign In</button>-->
-<!--			</div>-->
-			<div class="overlay-panel overlay-right">
-				<h1>Hello, Lord Commander!</h1>
-				<p>Welcome to the Medication Timeline App.</p>
-				<button class="ghost">Valar Morghulis</button>
-			</div>
-		</div>
-	</div>
 </div>
 
-<!--<script>-->
-<!--  const signUpButton = document.getElementById('signUp');-->
-<!--const signInButton = document.getElementById('signIn');-->
-<!--const container = document.getElementById('container');-->
-
-<!--signUpButton.addEventListener('click', () => {-->
-<!--	container.classList.add("right-panel-active");-->
-<!--});-->
-
-<!--signInButton.addEventListener('click', () => {-->
-<!--	container.classList.remove("right-panel-active");-->
-<!--});-->
-<!--</script>-->
 
