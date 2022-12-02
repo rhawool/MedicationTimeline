@@ -7,6 +7,8 @@ urlpatterns = [
     path('add_entry/', views.add_entry, name="add_entry"),
     path('history_list/', views.history_list, name="history_list"),
     path('delete_entries/', views.delete_entries, name="delete_entries"),
+    path('update_entry/<pk>/', views.UpdateEntryData.as_view(), name="update_entry"),
+    path('<int:entry_id>/delete_single_entry/', views.delete_single_entry, name="delete_single_entry"),
     #
     # path('medicine_list/', views.medicine_list, name="medicine_list"),
     # path('delete_medicine/', views.delete_medicine, name="delete_medicine"),

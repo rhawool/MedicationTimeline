@@ -1,7 +1,13 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from datetime import datetime
 from django.contrib import messages
+from django.urls import reverse_lazy
+from django.views.generic import UpdateView
+
+from timeline_app.forms import UpdateEntryDataForm
 from timeline_app.models import IntakeEntry
 
 
@@ -72,6 +78,23 @@ def delete_entries(request):
         messages.error(request, f'Error deleting entry. Error code/message: {e}')
         return redirect("history_list")
 
+
+class UpdateEntryData(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = IntakeEntry
+    form_class = UpdateEntryDataForm
+    template_name = 'update_entry.html'
+    login_url = 'login_user'
+    success_url = reverse_lazy('history_list')
+    success_message = "Entry updated successfully"
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message
+
+
+def delete_single_entry(request, entry_id):
+    IntakeEntry.objects.get(id=entry_id).delete()
+    messages.success(request, 'Entry Deleted Successfully')
+    return redirect("history_list")
 
 # def medicine_list(request):
 #     medicines = Medicine.objects.all()

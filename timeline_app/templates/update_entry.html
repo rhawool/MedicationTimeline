@@ -15,6 +15,13 @@
   .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
   .fa-anchor,.fa-coffee {font-size:200px}
 
+  .centerbox {
+
+        display: flex;
+        justify-content: center;
+        align-items:center;
+
+    }
 </style>
 </head>
 <body>
@@ -41,7 +48,7 @@
 
 <!-- Header -->
 <header class="w3-container w3-center" style="padding:128px 16px">
-  <h1 class="w3-margin w3-jumbo">History</h1>
+  <h1 class="w3-margin w3-jumbo">Update Entry</h1>
 {% if messages %}
     {% for message in messages %}
         {% if message.tags == 'success' %}<div class="alert alert-success" role="alert">
@@ -53,40 +60,27 @@
 {% endif %}
 
 
-    {% if entries %}
 
-    <table class="table table-striped">
+<div class="centerbox">
+    <div class="mb-3">
 
-                <thead>
-                  <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Last Intake Time</th>
-                    <th scope="col">Medicine Name</th>
-                    <th scope="col">Select</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for entry in entries %}
-                  <tr>
-                    <td>{{entry.id}}</td>
-                    <td><a href="{% url 'update_entry' entry.id %}">{{entry.intake_time}}</a></td>
-                    <td>{{entry.medicine_name}}</td>
-                    <form action="{% url 'delete_entries' %}" method="post" id="delete_entries">
-                        {% csrf_token %}
-                    </form>
-                    <td><input class="form-check-input" type="checkbox" name="selected_entries" value="{{ entry.id }}" form="delete_entries"></td>
-                  </tr>
-                {% endfor %}
+        {% load crispy_forms_tags %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="card-body">
+          {{ form|crispy }}
+          <div class="btn-block">
+            <button type="submit" class="btn btn-success" style="width:auto">Update Entry</button>&nbsp;&nbsp;&nbsp;<a class="btn btn-danger" style="width:auto" href="{% url 'delete_single_entry' intakeentry.id %}">Delete Entry</a>
 
-                </tbody>
+          </div>
+        </div>
+    </form>
 
-          </table>
+    </div>
+</div>
 
-    {% else %}
-    <p>No Entries Yet :(</p>
-    {% endif %}
+
     <a class="w3-button w3-black w3-padding-large w3-large w3-margin-top" href="/">Go Back</a>
-    {% if entries %}<button class="w3-button w3-black w3-padding-large w3-large w3-margin-top" type="submit" form="delete_entries">Delete Selected</button>{% endif %}
 
 </header>
 </body>
