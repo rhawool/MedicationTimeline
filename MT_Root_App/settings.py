@@ -22,23 +22,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 
+SECRET_KEY = 'django-insecure-x8)z^=3sbjw)$%1j+ibv2y(-3#0thgs$b@#hx=g%5hwti*7@ji'
 
+# SECRET_KEY = os.environ.get('SECRET_KEY')
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+# DEBUG = os.environ.get('DEBUG', default=False)
 
-DEBUG = os.environ.get('DEBUG', default=False)
-
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS')
-
-
-
-
+# ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS')
 
 
 #
-# DEBUG = True
+DEBUG = False
 #
-# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*']
 
 LOGIN_URL = '/login_user/'
 LOGIN_REDIRECT_URL = '/'
