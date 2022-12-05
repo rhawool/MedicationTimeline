@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
-import django_heroku
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,19 +21,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 
-SECRET_KEY = 'django-insecure-x8)z^=3sbjw)$%1j+ibv2y(-3#0thgs$b@#hx=g%5hwti*7@ji'
-
-# SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # DEBUG = os.environ.get('DEBUG', default=False)
+DEBUG = 'RENDER' not in os.environ
 
 # ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS')
+ALLOWED_HOSTS = ['medication-timeline.onrender.com']
 
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 #
-DEBUG = False
+# DEBUG = False
 #
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
 
 LOGIN_URL = '/login_user/'
 LOGIN_REDIRECT_URL = '/'
@@ -91,23 +93,23 @@ WSGI_APPLICATION = 'MT_Root_App.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'MT_DB',
-#         'USER': 'postgres',
-#         'PASSWORD': '87874',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'dj_database_url.config',
+        # 'NAME': 'MT_DB',
+        # 'USER': 'postgres',
+        # 'PASSWORD': '87874',
+        # 'HOST': 'localhost',
+        # 'PORT': '5432',
+    }
+}
 
 
 # Password validation
