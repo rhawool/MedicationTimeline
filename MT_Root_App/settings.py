@@ -102,7 +102,7 @@ WSGI_APPLICATION = 'MT_Root_App.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'dj_database_url.config',
+        'ENGINE': 'django.db.backends.postgres',
         # 'NAME': 'MT_DB',
         # 'USER': 'postgres',
         # 'PASSWORD': '87874',
